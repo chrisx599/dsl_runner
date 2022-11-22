@@ -2,18 +2,17 @@
 
 int main(int argc, char** argv)
 {
-    std::cout << "程序正在启动……" << std::endl;
+    std::cout << "Program is starting" << std::endl;
     if(!argc)
     {
-        std::cout << "错误:请使用正确格式:./runner.exe 脚本文件名称" << std::endl;
+        std::cout << "Error:Please use correct form:./runner.exe script_name" << std::endl;
         return 0;
     }
-    Parser::ParseFile(argv[0]);
-    std::cout << "脚本语法树已生成……" << std::endl;
+    Parser::ParseFile(argv[1]);
+    std::cout << "script parser tree is created" << std::endl;
 
     int i = 0;
-    stepnode node;
-    node = steptree[0];
+    stepnode node = steptree[0];
     int nextstepid;
     while (1)
     {
@@ -53,4 +52,8 @@ int main(int argc, char** argv)
             break;
         }
     }
+
+
+    system("pause");
+    return 0;
 }

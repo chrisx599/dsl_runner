@@ -65,5 +65,5 @@ int FindProcId(std::string wantproc)
 
 void ScriptError()
 {
-    std::cout << "脚本文件发生错误" << std::endl;
+    std::cout << "Error:Script Wrong" << std::endl;
 }

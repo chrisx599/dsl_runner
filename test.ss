@@ -1,30 +1,30 @@
 Step welcome
-    Speak "您好，请输入用户ID:"
+    Speak "Hello,please input your user ID:"
     Assign $id
     Getdata $id
-    Speak "您好" + $id +"，请问有什么可以帮您?"
+    Speak "Hello + $id + ,What can i help you?"
     Listen 5 20
         Branch complain complainProc
         Branch bill billProc
         Silence silenceProc
         Default defaultProc
 Step complainProc
-    Speak "您的意见是我们改进工作的动力，请问您还有什么补充?"
+    Speak "Your ideas help our work improvement,please input your suggestion?"
     Listen 5 50
         Default thanks
 Step thanks
-    Speak "感谢您的来电，再见"
+    Speak "Thank you for your telegram"
     Exit
 Step billProc
-    Speak "您的本月账单是" + $amount + "元，感谢您的来电，再见"
+    Speak "Your bill is + $amount + ,thank you for your telegram"
     Exit
 Step silenceProc
-    Speak "听不清，请您大声一点可以吗"
+    Speak "Sorry,please say that again"
     Listen 5 20
         Branch complain complainProc
         Branch bill billProc
         Silence silenceProc
         Default defaultProc
 Step defaultProc
-    Speak "请再次致电"
+    Speak "Welcome to call us again"
     Exit

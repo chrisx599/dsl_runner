@@ -3,6 +3,8 @@
 #include <fstream>
 
 
+extern std::map<std::string, std::string> varname;
+
 class Interpreter
 {
 public:

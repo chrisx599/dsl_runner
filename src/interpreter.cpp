@@ -1,6 +1,6 @@
 #include "interpreter.h"
 
-static std::map<std::string, std::string> varname;
+std::map<std::string, std::string> varname;
 
 /**/
 void Interpreter::Speak(std::vector<std::string> expression)
@@ -18,10 +18,10 @@ void Interpreter::Speak(std::vector<std::string> expression)
                 break;
             }
             else
-                words+=temp->second;
+                words = words + " " + temp->second;
         }
         else
-            words+=expression[i];
+            words = words + " " + expression[i];
     }
     std::cout << words << std::endl;
 }
@@ -43,22 +43,31 @@ void Interpreter::Assign(std::vector<std::string> var)
 void Interpreter::Getdata(std::vector<std::string> user)
 {
     std::ifstream ifs;
-    std::string filename = "userdata.db";
+    std::string filename = "./data/userdata.db";
     ifs.open(filename, std::ios::in);
     while (!ifs.eof())
     {
         std::string temp, amount;
         ifs >> temp >> amount;
-        if(temp == user[0])
-            varname.insert(std::make_pair(std::string("amount"), amount));
+        auto userid = varname.find(user[0]);
+        if(userid == varname.end())
+        {
+            Interpreter::Error();
+            break;
+        }
+        if(temp == userid->second)
+        {
+            varname.insert(std::make_pair(std::string("$amount"), amount));
+            return;
+        } 
     }
-    varname.insert(std::make_pair(std::string("amount"), std::string("0")));
+    varname.insert(std::make_pair(std::string("$amount"), std::string("0")));
     ifs.close();
 }
 
 void Interpreter::Listen(std::vector<std::string> timer, int &index)
 {
-    std::cout << "请在" << timer[0] << "秒到" << timer[1] << "秒输入,正在等待用户输入:" << std::endl;
+    std::cout << "Please input from" << timer[0] << "seconds to " << timer[1] << "secondes, wating for input:" << std::endl;
     std::string instruction;
     std::cin >> instruction;
     FindNextStep(instruction, index);
@@ -66,10 +75,10 @@ void Interpreter::Listen(std::vector<std::string> timer, int &index)
 
 void Interpreter::Exit()
 {
-    std::cout << "程序已结束" << std::endl;
+    std::cout << "Script is ending" << std::endl;
 }
 
 void Interpreter::Error()
 {
-    std::cout << "错误:脚本文件发生错误" << std::endl;
+    std::cout << "Error:Script Wrong" << std::endl;
 }

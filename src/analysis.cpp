@@ -1,6 +1,9 @@
 #include "analysis.h"
 
 
+std::vector<std::string> item;
+std::vector<stepnode> steptree;
+
 /*作用:读取脚本文件
 * 参数:filename:文件名称
 */
@@ -78,6 +81,10 @@ void Parser::ProcessTokens(std::vector<std::string> &token)
         ProcessStep(token[1]);
     else if(token[0] == "Speak")
         ProcessSpeak(token);
+    else if(token[0] == "Assign")
+        ProcessAssign(token);
+    else if(token[0] == "Getdata")
+        ProcessGetdata(token[1]);
     else if(token[0] == "Listen")
         ProcessListen(token[1], token[2]);
     else if(token[0] == "Branch")
@@ -108,6 +115,27 @@ void Parser::ProcessSpeak(std::vector<std::string> token)
     ProcessExpression(token);
     stepnode node;
     node = std::make_pair("Speak", item);
+    steptree.push_back(node);
+    item.clear();
+}
+
+void Parser::ProcessAssign(std::vector<std::string> token)
+{
+    item = token;
+    item.erase(item.begin());
+    stepnode node;
+    node = std::make_pair("Assign", item);
+    steptree.push_back(node);
+    item.clear();
+}
+
+
+void Parser::ProcessGetdata(std::string user)
+{
+    stepnode node;
+    std::vector<std::string> temp;
+    temp.push_back(user);
+    node = std::make_pair("Getdata", temp);
     steptree.push_back(node);
     item.clear();
 }
