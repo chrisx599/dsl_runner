@@ -12,7 +12,9 @@
                 "${fileDirname}\\${fileBasenameNoExtension}.exe",
                 "-I",
                 "${workspaceFolder}\\include",
-                "${workspaceFolder}\\src\\analysis.cpp"
+                "${workspaceFolder}\\src\\analysis.cpp",
+                "${workspaceFolder}\\src\\interpreter.cpp",
+                "${workspaceFolder}\\src\\tools.cpp"
             ],
             "options": {
                 "cwd": "${fileDirname}"

@@ -10,29 +10,47 @@ int main(int argc, char** argv)
     }
     Parser::ParseFile(argv[0]);
     std::cout << "脚本语法树已生成……" << std::endl;
-    int size = steptree.size();
+
     int i = 0;
     stepnode node;
+    node = steptree[0];
+    int nextstepid;
     while (1)
     {
-        node = steptree[i++];
         if(node.first == "Step")
+        {
+            node = steptree[++i];
             continue;
+        }
         else if(node.first == "Speak")
+        {
             Interpreter::Speak(node.second);
+            node = steptree[++i];
+        }
+        else if(node.first == "Assign")
+        {
+            Interpreter::Assign(node.second);
+            node = steptree[++i];
+        }
+        else if(node.first == "Getdata")
+        {
+            Interpreter::Getdata(node.second);
+            node = steptree[++i];
+        }
         else if(node.first == "Listen")
-            Interpreter::Listen(node.second);
-        else if(node.first == "Branch")
-            Interpreter::Branch(node.second);
-        else if(node.first == "Silence")
-            Interpreter::Silence(node.second);
-        else if(node.first == "Default")
-            Interpreter::Default(node.second);
+        {
+            Interpreter::Listen(node.second, i);
+            node = steptree[i];
+        }
         else if(node.first == "Exit")
+        {
+            Interpreter::Exit();
             break;
+        }   
         else
         {
-
+            Interpreter::Error();
+            break;
         }
     }
 }
