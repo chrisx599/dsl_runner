@@ -1,7 +1,7 @@
 Step welcome
     Speak "Hello,please input your user ID:"
     Assign $id
-    Getdata $id
+    Getdata $id $amount
     Speak "Hello + $id + ,What can i help you?"
     Listen 5 20
         Branch complain complainProc

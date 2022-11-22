@@ -1,5 +1,9 @@
 #include "tools.h"
 
+/*作用:查找下一个Step,将index改到下一个Step步骤
+* 参数:instruction:指令名称
+       index:当前Step索引
+* 返回:无*/
 void FindNextStep(std::string instruction, int &index)
 {
     int size = steptree.size();
@@ -47,6 +51,9 @@ void FindNextStep(std::string instruction, int &index)
     }
 }
 
+/*作用:查找Step程序名称
+* 参数:wantproc:想要查找的Step程序名称
+* 返回:无*/
 int FindProcId(std::string wantproc)
 {
     int size = steptree.size();
@@ -63,6 +70,9 @@ int FindProcId(std::string wantproc)
     return 0;
 }
 
+/*作用:错误处理
+* 参数:无
+* 返回:无*/
 void ScriptError()
 {
     std::cout << "Error:Script Wrong" << std::endl;

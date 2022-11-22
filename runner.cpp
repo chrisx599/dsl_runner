@@ -3,13 +3,19 @@
 int main(int argc, char** argv)
 {
     std::cout << "Program is starting" << std::endl;
-    if(!argc)
+    if(argc != 2)
     {
-        std::cout << "Error:Please use correct form:./runner.exe script_name" << std::endl;
+        std::cout << "Error:Please use correct form:./runner.exe script_name.ss" << std::endl;
+        system("pause");
         return 0;
     }
-    Parser::ParseFile(argv[1]);
-    std::cout << "script parser tree is created" << std::endl;
+    if(!Parser::ParseFile(argv[1]))
+    {
+        std::cout << "Error:Script parser tree is not created" << std::endl;
+        system("pause");
+        return 0;
+    }
+    std::cout << "Script parser tree is created" << std::endl;
 
     int i = 0;
     stepnode node = steptree[0];

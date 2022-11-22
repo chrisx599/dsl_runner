@@ -11,18 +11,19 @@ extern std::vector<stepnode> steptree;
 class Parser
 {
 public:
-    static void ParseFile(std::string filename);
+    static bool ParseFile(std::string filename);
     static void HandleLine(std::string &line);
     static void ParseLine(std::string line, std::vector<std::string> &token);
-    static void ProcessTokens(std::vector<std::string> &token);
+    static bool ProcessTokens(std::vector<std::string> &token);
     static void ProcessStep(std::string stepname);
     static void ProcessSpeak(std::vector<std::string> token);
     static void ProcessAssign(std::vector<std::string> token);
-    static void ProcessGetdata(std::string user);
+    static void ProcessGetdata(std::string dicfirst, std::string dicsecond);
     static void ProcessListen(std::string starttimer, std::string stoptimer);
     static void ProcessBranch(std::string answer, std::string nextstepid);
     static void ProcessSilence(std::string nextstepid);
     static void ProcessDefault(std::string nextstepid);
     static void ProcessExit();
     static void ProcessExpression(std::vector<std::string> token);
+    static void SyntaxError();
 };
