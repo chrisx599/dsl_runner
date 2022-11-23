@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": ["./script/repeat.ss"],
+            "args": ["./script/searchphone.ss", "./data/searchphonedata.db"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

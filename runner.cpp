@@ -5,7 +5,7 @@ int main(int argc, char** argv)
     std::cout << "Program is starting" << std::endl;
     if(argc != 2 && argc != 3)
     {
-        std::cout << "Error:Please use correct form:./runner.exe script_name.ss" << std::endl;
+        std::cout << "Error:Please use correct form:./runner.exe [script_name.ss] [script_data_name.db]" << std::endl;
         system("pause");
         return 0;
     }

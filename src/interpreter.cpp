@@ -3,18 +3,18 @@
 std::map<std::string, std::string> varname;
 
 /*作用:对关键词Speak进行解释,输出语句
-* 参数:expression:将要输出的语句
-* 返回:无*/
+ * 参数:expression:将要输出的语句
+ * 返回:无*/
 void Interpreter::Speak(std::vector<std::string> expression)
 {
     int expsize = expression.size();
     std::string words = "";
     for (int i = 0; i < expsize; i++)
     {
-        if(expression[i][0] == '$')
+        if (expression[i][0] == '$')
         {
             auto temp = varname.find(expression[i]);
-            if(temp == varname.end())
+            if (temp == varname.end())
             {
                 Interpreter::Error();
                 break;
@@ -29,8 +29,8 @@ void Interpreter::Speak(std::vector<std::string> expression)
 }
 
 /*作用:对关键词Assign进行解释,对变量进行赋值
-* 参数:var:将要赋值的变量集合
-* 返回:无*/
+ * 参数:var:将要赋值的变量集合
+ * 返回:无*/
 void Interpreter::Assign(std::vector<std::string> var)
 {
     int varnum = var.size();
@@ -39,9 +39,9 @@ void Interpreter::Assign(std::vector<std::string> var)
     {
         std::cin >> value;
         auto isexist = varname.find(var[i]);
-        if(isexist != varname.end())
+        if (isexist != varname.end())
             varname.erase(isexist);
-        if(var[i][0] == '$')
+        if (var[i][0] == '$')
             varname.insert(std::make_pair(var[i], value));
         else
             Interpreter::Error();
@@ -49,56 +49,68 @@ void Interpreter::Assign(std::vector<std::string> var)
 }
 
 /*作用:对关键词Getdata进行解释,对db数据库字典查找数据
-* 参数:parameter:parameter中有两个字符串,字符串1为key变量,字符串2为将要保存value的变量
-* 返回:无*/
+ * 参数:parameter:parameter中有两个字符串,字符串1为key变量,字符串2为将要保存value的变量
+ * 返回:无*/
 void Interpreter::Getdata(std::vector<std::string> parameter)
 {
     std::ifstream ifs;
     std::string filename = "./data/data.db";
+    auto indexitem = varname.find(parameter[0]);
+    if (indexitem == varname.end())
+    {
+        Interpreter::Error();
+        return;
+    }
     ifs.open(filename, std::ios::in);
     while (!ifs.eof())
     {
         std::string dicfirst, dicsecond;
         ifs >> dicfirst >> dicsecond;
-        auto indexitem = varname.find(parameter[0]);
-        if(indexitem == varname.end())
+        if (dicfirst == indexitem->second)
         {
-            Interpreter::Error();
-            break;
-        }
-        if(dicfirst == indexitem->second)
-        {
+            auto temp = varname.find(parameter[1]);
+            if (temp != varname.end())
+                varname.erase(temp);
             varname.insert(std::make_pair(parameter[1], dicsecond));
             return;
-        } 
+        }
     }
+    auto temp = varname.find(parameter[1]);
+    if (temp != varname.end())
+        varname.erase(temp);
     varname.insert(std::make_pair(parameter[1], std::string("-1")));
     ifs.close();
 }
 
 /*作用:对关键词Getdata进行解释,对db数据库字典查找数据
-* 参数:parameter:parameter中有两个字符串,字符串1为key变量,字符串2为将要保存value的变量
-* 返回:无*/
+ * 参数:parameter:parameter中有两个字符串,字符串1为key变量,字符串2为将要保存value的变量
+ * 返回:无*/
 void Interpreter::Getdata(std::string filename, std::vector<std::string> parameter)
 {
     std::ifstream ifs;
     ifs.open(filename, std::ios::in);
+    auto indexitem = varname.find(parameter[0]);
+    if (indexitem == varname.end())
+    {
+        Interpreter::Error();
+        return;
+    }
     while (!ifs.eof())
     {
         std::string dicfirst, dicsecond;
         ifs >> dicfirst >> dicsecond;
-        auto indexitem = varname.find(parameter[0]);
-        if(indexitem == varname.end())
+        if (dicfirst == indexitem->second)
         {
-            Interpreter::Error();
-            break;
-        }
-        if(dicfirst == indexitem->second)
-        {
+            auto temp = varname.find(parameter[1]);
+            if (temp != varname.end())
+                varname.erase(temp);
             varname.insert(std::make_pair(parameter[1], dicsecond));
             return;
-        } 
+        }
     }
+    auto temp = varname.find(parameter[1]);
+    if (temp != varname.end())
+        varname.erase(temp);
     varname.insert(std::make_pair(parameter[1], std::string("-1")));
     ifs.close();
 }
@@ -116,16 +128,16 @@ void Interpreter::Listen(std::vector<std::string> timer, int &index)
 }
 
 /*作用:对关键词Exit进行解释,退出程序
-* 参数:expression:将要输出的语句
-* 返回:无*/
+ * 参数:expression:将要输出的语句
+ * 返回:无*/
 void Interpreter::Exit()
 {
     std::cout << "Script is ending" << std::endl;
 }
 
 /*作用:错误处理
-* 参数:无
-* 返回:无*/
+ * 参数:无
+ * 返回:无*/
 void Interpreter::Error()
 {
     std::cout << "Error:Script Wrong" << std::endl;

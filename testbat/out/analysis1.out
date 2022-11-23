@@ -1,0 +1,26 @@
+请按任意键继续. . . 
+Step repeat 
+Speak "Hello,i'm a reread robot" 
+Speak "use 'exit' to end program, use 'echo [word]' to echo" 
+Speak "you can say any words,i will repeat what you say" 
+Listen 5 10 
+Branch echo echoProc 
+Branch exit exitProc 
+Default defaultProc 
+Step echoProc 
+Assign $word 
+Speak $word 
+Listen 5 10 
+Branch echo echoProc 
+Branch exit exitProc 
+Default defaultProc 
+Step exitProc 
+Speak "welcome to use again" 
+Exit  
+Step defaultProc 
+Speak "Can not understand your instruction" 
+Speak "Please input your instruction again" 
+Listen 5 10 
+Branch echo echoProc 
+Branch exit exitProc 
+Default defaultProc 

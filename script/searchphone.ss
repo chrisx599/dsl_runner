@@ -1,0 +1,8 @@
+Step welcome
+    Speak "Hello,welcome use 114"
+    Speak "Please input name, and i will search his phone num for you"
+    Speak "If phone num is -1, that represent can't get his phone num"
+    Assign $name
+    Getdata $name $phonenum
+    Speak " + $name + 's phone num is + $phonenum + "
+Endstep
