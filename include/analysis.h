@@ -24,6 +24,7 @@ public:
     static void ProcessSilence(std::string nextstepid);
     static void ProcessDefault(std::string nextstepid);
     static void ProcessExit();
+    static void ProcessEndstep();
     static void ProcessExpression(std::vector<std::string> token);
     static void SyntaxError();
 };

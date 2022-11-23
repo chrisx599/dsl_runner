@@ -38,6 +38,9 @@ void Interpreter::Assign(std::vector<std::string> var)
     for (int i = 0; i < varnum; i++)
     {
         std::cin >> value;
+        auto isexist = varname.find(var[i]);
+        if(isexist != varname.end())
+            varname.erase(isexist);
         if(var[i][0] == '$')
             varname.insert(std::make_pair(var[i], value));
         else
@@ -52,6 +55,33 @@ void Interpreter::Getdata(std::vector<std::string> parameter)
 {
     std::ifstream ifs;
     std::string filename = "./data/data.db";
+    ifs.open(filename, std::ios::in);
+    while (!ifs.eof())
+    {
+        std::string dicfirst, dicsecond;
+        ifs >> dicfirst >> dicsecond;
+        auto indexitem = varname.find(parameter[0]);
+        if(indexitem == varname.end())
+        {
+            Interpreter::Error();
+            break;
+        }
+        if(dicfirst == indexitem->second)
+        {
+            varname.insert(std::make_pair(parameter[1], dicsecond));
+            return;
+        } 
+    }
+    varname.insert(std::make_pair(parameter[1], std::string("-1")));
+    ifs.close();
+}
+
+/*作用:对关键词Getdata进行解释,对db数据库字典查找数据
+* 参数:parameter:parameter中有两个字符串,字符串1为key变量,字符串2为将要保存value的变量
+* 返回:无*/
+void Interpreter::Getdata(std::string filename, std::vector<std::string> parameter)
+{
+    std::ifstream ifs;
     ifs.open(filename, std::ios::in);
     while (!ifs.eof())
     {

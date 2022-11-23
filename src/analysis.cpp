@@ -76,7 +76,8 @@ void Parser::ParseLine(std::string line, std::vector<std::string> &token)
 * 返回:语法正确或错误*/
 bool Parser::ProcessTokens(std::vector<std::string> &token)
 {
-    int token_size = token.size();
+    if(!token.size())
+        return 1;
     if(token[0] == "Step")
         ProcessStep(token[1]);
     else if(token[0] == "Speak")
@@ -95,6 +96,8 @@ bool Parser::ProcessTokens(std::vector<std::string> &token)
         ProcessDefault(token[1]);
     else if(token[0] == "Exit")
         ProcessExit();
+    else if(token[0] == "Endstep")
+        ProcessEndstep();
     else
     {
         SyntaxError();
@@ -231,6 +234,18 @@ void Parser::ProcessExit()
     std::vector<std::string> temp;
     temp.push_back("");
     node = std::make_pair("Exit", temp);
+    steptree.push_back(node);
+}
+
+/*作用:对关键词Endstep进行处理,向语法树中添加节点
+* 参数:无
+* 返回:无*/
+void Parser::ProcessEndstep()
+{
+    stepnode node;
+    std::vector<std::string> temp;
+    temp.push_back("");
+    node = std::make_pair("Endstep", temp);
     steptree.push_back(node);
 }
 

@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": ["test.ss"],
+            "args": ["./script/repeat.ss"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],

@@ -27,7 +27,7 @@ void FindNextStep(std::string instruction, int &index)
         }
         else if (temp.first == "Silence")
         {
-            if(instruction == "")
+            if(instruction == "silence")
             {
                 int re = FindProcId(temp.second[0]);
                 if(re)
