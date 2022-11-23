@@ -83,7 +83,8 @@ void Interpreter::Getdata(std::vector<std::string> parameter)
 }
 
 /*作用:对关键词Getdata进行解释,对db数据库字典查找数据
- * 参数:parameter:parameter中有两个字符串,字符串1为key变量,字符串2为将要保存value的变量
+ * 参数:filename:传入的数据库文件路径
+        parameter:parameter中有两个字符串,字符串1为key变量,字符串2为将要保存value的变量
  * 返回:无*/
 void Interpreter::Getdata(std::string filename, std::vector<std::string> parameter)
 {
