@@ -200,6 +200,16 @@ typedef std::pair<std::string, std::vector<std::string>> stepnode;
 
   > 注意：编写的脚本中Step中必须使用Listen或Exit或Endstep保证程序正常运行
 
+### 脚本编写逻辑
+
+- 每个脚本编写时必须要有一个`Step`语句块作为入口Steo，在Step语句块编写完成后，必须选择正确的脚本处理逻辑，是循环、结束还是分支跳转，所及必须用`Listen`或`Exit`或`Endstep`来作为Step语句块的结束。
+
+- 在使用`Listen`语句块时，其分支语句中必须包含`Default`分支，表示默认处理流程。
+
+- 当使用`Listen`跳转到其他Step时，通过`Branch` 分支语句进行跳转，所以脚本中必须编写有跳转到该Step的Step语句块，否则会产生脚本解释错误。
+
+查看`script`文件夹下的脚本示例，可以更好了解脚本的编写结构。
+
 ### 注释
 
 以‘#’开头为注释

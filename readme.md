@@ -52,6 +52,17 @@ RSL 是一种简单的脚本语言，提供了简单的语法描述在线客服�
 
 [weather.ss](./script/weather.ss)
 
+## 使用
+
+可以通过cmd终端使用解释器程序，程序后面可跟两个参数，第一个参数为脚本路径，第二个参数为数据库路径(可选，若不填则默认选择data文件夹下的data.db数据库文件)
+
+例如要运行user.ss脚本，使用如下命令
+
+```cpp
+./ruuner.exe  ./script/user.ss  ./data/userdata.db
+```
+
+
 ## 开发文档
 
 [开发文档](develop.md)
